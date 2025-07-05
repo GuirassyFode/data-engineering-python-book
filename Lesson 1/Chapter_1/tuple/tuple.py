@@ -1,4 +1,4 @@
-# Tuple 
+# Tuple
 read_only = ("Data Engineer", "DeVops")
 print(read_only)
 print(read_only[1])
