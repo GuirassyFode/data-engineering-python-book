@@ -1,0 +1,52 @@
+name: Data Engineering Full CI/CD
+
+on:
+  push:
+    branches: [ main, exercise_practice ]
+  pull_request:
+    branches: [ main, exercise_practice ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas notebook nbconvert nbval flake8 black isort pytest
+
+    - name: Lint Python files with flake8
+      run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+    - name: Check code formatting with black
+      run: black --check .
+
+    - name: Check import sorting with isort
+      run: isort . --check-only
+
+    - name: Run unit tests (if any)
+      run: pytest
+
+    - name: Test Jupyter Notebooks
+      run: |
+        pytest --nbval --disable-warnings Chapter_1/LoadingDataFromFiles/readFile.ipynb
+
+    - name: Convert notebooks to HTML (artifact)
+      run: |
+        jupyter nbconvert --to html Chapter_1/LoadingDataFromFiles/readFile.ipynb
+
+    - name: Upload notebook HTML as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: notebook-html
+        path: Chapter_1/LoadingDataFromFiles/readFile.html
+
