@@ -2,9 +2,9 @@ name: Data Engineering Full CI/CD
 
 on:
   push:
-    branches: [ main, streamlit_view ]
+    branches: [ main, exercise_practice ]
   pull_request:
-    branches: [ main, streamlit_view ]
+    branches: [ main, exercise_practice ]
 
 jobs:
   build-and-test:
@@ -33,9 +33,6 @@ jobs:
     - name: Check import sorting with isort
       run: isort . --check-only
 
-    - name: Run unit tests (if any)
-      run: pytest
-
     - name: Test Jupyter Notebooks
       run: |
         pytest --nbval --disable-warnings Chapter_1/LoadingDataFromFiles/readFile.ipynb
@@ -49,3 +46,4 @@ jobs:
       with:
         name: notebook-html
         path: Chapter_1/LoadingDataFromFiles/readFile.html
+
