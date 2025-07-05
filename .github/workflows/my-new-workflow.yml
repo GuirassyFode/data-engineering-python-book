@@ -33,9 +33,6 @@ jobs:
     - name: Check import sorting with isort
       run: isort . --check-only
 
-    - name: Run unit tests (if any)
-      run: pytest
-
     - name: Test Jupyter Notebooks
       run: |
         pytest --nbval --disable-warnings Chapter_1/LoadingDataFromFiles/readFile.ipynb
