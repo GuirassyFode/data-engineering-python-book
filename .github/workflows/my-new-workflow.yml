@@ -2,9 +2,9 @@ name: Data Engineering Full CI/CD
 
 on:
   push:
-    branches: [ main, exercise_practice ]
+    branches: [ main, streamlit_view ]
   pull_request:
-    branches: [ main, exercise_practice ]
+    branches: [ main, streamlit_view ]
 
 jobs:
   build-and-test:
